@@ -20,4 +20,5 @@ vllm serve "$MODEL_NAME" \
     --tensor-parallel-size "$NUM_GPUS" \
     --max-model-len 40000 \
     --max-seq-len-to-capture 38000 \
-    --disable-log-stats
+    --disable-log-stats \
+    --api-key "abc-123"

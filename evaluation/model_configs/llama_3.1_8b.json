@@ -1,0 +1,11 @@
+{
+    "model": "/mnt/longcontext/models/siyuan/llama3/Llama-3.1-8B-Instruct",
+    "api_key": "abc-123",
+    "api_url": "http://localhost:8000/v1",
+    "api_provider": "vllm",
+    "max_tokens": 192,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "timeout": 700,
+    "max_retries": 3
+}

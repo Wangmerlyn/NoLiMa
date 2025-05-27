@@ -1,3 +1,4 @@
+cd data
 mkdir -p needlesets
 cd needlesets
 wget -c https://huggingface.co/datasets/amodaresi/NoLiMa/resolve/main/needlesets/needle_set.json
