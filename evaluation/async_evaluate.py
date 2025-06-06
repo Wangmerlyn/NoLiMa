@@ -52,7 +52,14 @@ class NoLiMa_Tester:
         self.model_config_path = os.path.join(model_configs_dir, model_name + ".json")
 
         if not os.path.exists(self.model_config_path):
-            raise FileNotFoundError(f"Model configuration for {model_name} not found in {model_configs_dir}")
+        # Check if the model configuration file exists
+            custom_name = os.getenv("CUSTOM_MODEL_CONFIG", "")
+            self.model_config_path = os.path.join(model_configs_dir, custom_name + ".json")
+            if not os.path.exists(self.model_config_path):
+                custom_name = model_name.replace(" ", "_")
+                self.model_config_path = os.path.join(model_configs_dir, custom_name + ".json")
+                if not os.path.exists(self.model_config_path):
+                    raise FileNotFoundError(f"Model configuration for {model_name} not found in {model_configs_dir}")
         
         with open(self.model_config_path, "r") as file:
             self.model_config = json.load(file)
