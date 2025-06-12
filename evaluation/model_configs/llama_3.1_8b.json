@@ -3,9 +3,9 @@
     "api_key": "abc-123",
     "api_url": "http://localhost:8000/v1",
     "api_provider": "vllm",
-    "max_tokens": 192,
+    "max_tokens": 4096,
     "temperature": 0.0,
     "top_p": 1.0,
-    "timeout": 700,
+    "timeout": 10000,
     "max_retries": 3
 }

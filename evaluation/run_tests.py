@@ -1,5 +1,3 @@
-# Copyright 2022 Adobe
-# All Rights Reserved.
 
 # NOTICE: Adobe permits you to use, modify, and distribute this file in
 # accordance with the terms of the Adobe license agreement accompanying
@@ -19,7 +17,7 @@ from async_evaluate import NoLiMa_Tester
 DEFAULT_TASK_TEMPLATE = "You will answer a question based on the following book snippet:\n\n{haystack}\n\nUse the information provided in the book snippet to answer the question. Your answer should be short and based on either explicitly stated facts or strong, logical inferences.\n\nQuestion: {question}\n\n Return only the final answer with no additional explanation or reasoning."
 
 if __name__ == "__main__":
-    parser = ArgumentParser(description="NoLiMa Multi-setup Tester")
+    parser = ArgumentParser(description="NoLiMa Multi-setup Tester", default_env=True, parser_mode="omegaconf")
     parser.add_argument('--config', action=ActionConfigFile, help='Path to a configuration YAML file.')
     parser.add_argument("--model_name", type=str, help="Name of the model to test")
     parser.add_argument("--model_configs_dir", type=str, help="Directory containing model configurations")

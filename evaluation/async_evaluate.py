@@ -64,6 +64,14 @@ class NoLiMa_Tester:
         
         with open(self.model_config_path, "r") as file:
             self.model_config = json.load(file)
+            if "custom" in self.model_config_path:
+                print(f"Using custom model configuration from {self.model_config_path}")
+                self.model_config["model"] = os.getenv("MODEL_PATH", self.model_name)
+                self.model_config["max_tokens"] = int(os.getenv("MAX_TOKENS", 2048))
+                self.model_config["temperature"] = float(os.getenv("TEMPERATURE", 0.6))
+            print(f"using model config: {self.model_config}")
+                
+
 
         self.api_connector = APIConnector(
             **self.model_config
@@ -98,6 +106,7 @@ class NoLiMa_Tester:
         self.haystack = BookHaystack(self.haystack_path)
         
         self.results_dir = results_dir
+        print(f"Results will be saved in {self.results_dir}")
         os.makedirs(results_dir, exist_ok=True)
 
         self.retrieval_question = retrieval_question
@@ -116,7 +125,7 @@ class NoLiMa_Tester:
         self.log_placements_dir = log_placements_dir
 
         self.test_name = test_name
-        self.eval_name = f"{model_name}_book_{test_name}_{int(time.time())}" if test_name != "" else f"{model_name}_book_{int(time.time())}"
+        self.eval_name = f"{os.path.basename(model_name)}_book_{test_name}_{int(time.time())}" if test_name != "" else f"{model_name}_book_{int(time.time())}"
 
     
     def _evaluate_response(self, response: str, gold_answers = None) -> int:
@@ -174,6 +183,9 @@ class NoLiMa_Tester:
             outputs["distractor"] = self.distractor
         outputs["test_hash"] = self.get_hash(outputs)
         results_path = os.path.join(self.results_dir, f"{self.eval_name}.json")
+        print(self.results_dir)
+        print(self.eval_name)
+        print(f"Results should be at {results_path}")
         if os.path.exists(results_path):
             print(f"Results already exist at {results_path}")
             print("Skipping evaluation")
